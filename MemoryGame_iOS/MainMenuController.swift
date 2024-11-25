@@ -7,6 +7,8 @@ class MainMenuController: UIViewController {
     @IBOutlet weak var MediumMode: UIButton!
     @IBOutlet weak var HardMode: UIButton!
     
+    let segueIdentifier = "showGameBoard"
+    var selectedDifficulty: GameDifficulty = .easy
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +20,7 @@ class MainMenuController: UIViewController {
     
     //MARK:- IBActions
     @IBAction func EasyModeClicked(_ sender: UIButton) {
+        selectedDifficulty = .easy
         // check the current image of the button
         if let currentImage = EasyMode.image(for: .normal),
            let selectedImage = UIImage(named: "button_easy"),
@@ -30,6 +33,7 @@ class MainMenuController: UIViewController {
     }
     
     @IBAction func MediumModeClicked(_ sender: UIButton) {
+        selectedDifficulty = .medium
         // check the current image of the button
         if let currentImage = MediumMode.image(for: .normal),
            let selectedImage = UIImage(named: "button_medium"),
@@ -42,6 +46,7 @@ class MainMenuController: UIViewController {
     }
     
     @IBAction func HardModeClicked(_ sender: UIButton) {
+        selectedDifficulty = .hard
         // check the current image of the button
         if let currentImage = HardMode.image(for: .normal),
            let selectedImage = UIImage(named: "button_hard"),
@@ -53,13 +58,11 @@ class MainMenuController: UIViewController {
         }
     }
     
-    
-    
-
-    
-    
-    
-    
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == segueIdentifier,
+           let gameViewController = segue.destination as? GameViewController {
+            gameViewController.difficulty = selectedDifficulty
+        }
+    }
 }
 
