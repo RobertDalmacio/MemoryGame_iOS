@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  MemoryGame_iOS
-//
-//  Created by Robert Dalmacio on 2024-11-10.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
