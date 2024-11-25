@@ -38,6 +38,9 @@ class GameViewController: UIViewController {
     }
     
     private func initGameCards() {
+        cardArts = [String]()
+        cards = [GameCard]()
+        
         let numbers = getNumberOfRandomNum(number: cardTotal/2, lower: 1, upper: 12)
         for num in numbers {
             cardArts.append(defaultIconName + String(num))
@@ -67,7 +70,7 @@ class GameViewController: UIViewController {
         updateTimeElapsed(time: 0)
         updateMoves(moves: 0)
         
-        for i in 0...cardTotal-1{
+        for i in 0...cardTotal-1 {
                 let cell = cardCollectionView.cellForItem(at: IndexPath(row: i, section: 0)) as! CardCollectionViewCell
                 cell.CardArtImageView.image = cardBackgroundImage
         }
@@ -114,8 +117,8 @@ extension GameViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Tapped on card at \(indexPath.row), \(indexPath.section)")
             
-        // Check if the card is already matched or face up
-        if cards[indexPath.row].isFaceUp || cards[indexPath.row].isMatched {
+        // Check if the card is already faced up
+        if  cards[indexPath.row].isFaceUp {
             return
         }
         
