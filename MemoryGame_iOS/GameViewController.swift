@@ -155,6 +155,27 @@ extension GameViewController: UICollectionViewDelegate {
                     facedUpCards = 0
                 }
             }
+            
+            var matchedCards = 0
+            for i in 0..<cards.count{
+                if cards[i].isMatched {
+                    matchedCards+=1
+                }
+            }
+            
+            if matchedCards == cards.count { // game is successfully completed
+                stopTimer()
+                
+                let alertController = UIAlertController(title: "Yay!", message: "You have successfully completed the level in \(timeElapsed) seconds!", preferredStyle: .alert)
+
+                let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                    alertController.dismiss(animated: true)
+                }
+
+                alertController.addAction(okAction)
+
+                present(alertController, animated: true, completion: nil)
+            }
         }
     }
 }
