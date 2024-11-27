@@ -20,6 +20,12 @@ let cardBackgroundImage = UIImage(named: "background_card")
 let timeElapsedText = "Time elapsed (s): "
 let movesText = "Moves: "
 
+let NUM_GAMES = "numberOfGamesPlayed"
+let COMPLETION_TIME = "completionTime"
+let DATE_TIME = "dateTime"
+let NUM_OF_MOVES = "numberOfMoves"
+let GAME_DIFFICULTY = "gameDifficulty"
+
 func getCardTotal(difficulty: GameDifficulty) -> Int {
     switch difficulty {
     case .medium:

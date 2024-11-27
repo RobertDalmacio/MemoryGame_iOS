@@ -2,13 +2,21 @@ import UIKit
 
 class MainMenuController: UIViewController {
     
-    //MARK:- Outlets
+    //MARK: - Outlets
+    
     @IBOutlet weak var EasyMode: UIButton!
     @IBOutlet weak var MediumMode: UIButton!
     @IBOutlet weak var HardMode: UIButton!
     
-    let segueIdentifier = "showGameBoard"
-    var selectedDifficulty: GameDifficulty = .easy
+    // MARK: - Constants
+    
+    private let segueIdentifier = "showGameBoard"
+    
+    // MARK: - Properties
+    
+    private var selectedDifficulty: GameDifficulty = .easy
+    
+    // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,45 +26,32 @@ class MainMenuController: UIViewController {
         HardMode.setImage(UIImage(named: "button_hard"), for: .normal)
     }
     
-    //MARK:- IBActions
+    //MARK: - IBActions
+    
     @IBAction func EasyModeClicked(_ sender: UIButton) {
-        selectedDifficulty = .easy
-        // check the current image of the button
-        if let currentImage = EasyMode.image(for: .normal),
-           let selectedImage = UIImage(named: "button_easy"),
-           currentImage.isEqual(selectedImage) {
-            
-            EasyMode.setImage(UIImage(named: "button_easy_selected"), for: .normal)
-            MediumMode.setImage(UIImage(named: "button_medium"), for: .normal)
-            HardMode.setImage(UIImage(named: "button_hard"), for: .normal)
-        }
+        updateDifficultySelection(difficulty: .easy)
     }
     
     @IBAction func MediumModeClicked(_ sender: UIButton) {
-        selectedDifficulty = .medium
-        // check the current image of the button
-        if let currentImage = MediumMode.image(for: .normal),
-           let selectedImage = UIImage(named: "button_medium"),
-           currentImage.isEqual(selectedImage) {
-            
-            EasyMode.setImage(UIImage(named: "button_easy"), for: .normal)
-            MediumMode.setImage(UIImage(named: "button_medium_selected"), for: .normal)
-            HardMode.setImage(UIImage(named: "button_hard"), for: .normal)
-        }
+        updateDifficultySelection(difficulty: .medium)
     }
     
     @IBAction func HardModeClicked(_ sender: UIButton) {
-        selectedDifficulty = .hard
-        // check the current image of the button
-        if let currentImage = HardMode.image(for: .normal),
-           let selectedImage = UIImage(named: "button_hard"),
-           currentImage.isEqual(selectedImage) {
-            
-            EasyMode.setImage(UIImage(named: "button_easy"), for: .normal)
-            MediumMode.setImage(UIImage(named: "button_medium"), for: .normal)
-            HardMode.setImage(UIImage(named: "button_hard_selected"), for: .normal)
-        }
+        updateDifficultySelection(difficulty: .hard)
     }
+    
+    // MARK: - Helper Methods
+    
+    private func updateDifficultySelection(difficulty: GameDifficulty) {
+        selectedDifficulty = difficulty
+        
+        // update button images based on selected difficulty
+        EasyMode.setImage(UIImage(named: difficulty == .easy ? "button_easy_selected" : "button_easy"), for: .normal)
+        MediumMode.setImage(UIImage(named: difficulty == .medium ? "button_medium_selected" : "button_medium"), for: .normal)
+        HardMode.setImage(UIImage(named: difficulty == .hard ? "button_hard_selected" : "button_hard"), for: .normal)
+    }
+    
+    // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == segueIdentifier,

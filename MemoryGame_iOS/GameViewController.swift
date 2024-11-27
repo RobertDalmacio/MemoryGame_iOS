@@ -98,6 +98,29 @@ class GameViewController: UIViewController {
         timer?.invalidate()
         timer = nil
     }
+    
+    /// saves game into UserDefaults
+    private func saveGame() {
+        // number of current saved games
+        let numGamesPlayed = UserDefaults.standard.integer(forKey: NUM_GAMES)
+        let gameNumber = numGamesPlayed + 1
+        
+        // save game data
+        UserDefaults.standard.set(formatTimeElapsed(timeElapsed), forKey: COMPLETION_TIME + String(gameNumber))
+        UserDefaults.standard.set(Date(), forKey: DATE_TIME + String(gameNumber))
+        UserDefaults.standard.set(movesMade, forKey: NUM_OF_MOVES + String(gameNumber))
+        UserDefaults.standard.set(difficulty.rawValue, forKey: GAME_DIFFICULTY + String(gameNumber))
+        UserDefaults.standard.set(gameNumber, forKey: NUM_GAMES)
+    }
+    
+    /// format number of seconds to string HH:MM:SS
+    private func formatTimeElapsed(_ seconds: Int) -> String {
+        let hours = seconds / 3600
+        let minutes = (seconds % 3600) / 60
+        let seconds = seconds % 60
+        
+        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+    }
 }
 
 extension GameViewController: UICollectionViewDataSource{
@@ -166,6 +189,8 @@ extension GameViewController: UICollectionViewDelegate {
             if matchedCards == cards.count { // game is successfully completed
                 stopTimer()
                 
+                saveGame()
+                
                 let alertController = UIAlertController(title: "Yay!", message: "You have successfully completed the level in \(timeElapsed) seconds!", preferredStyle: .alert)
 
                 let okAction = UIAlertAction(title: "OK", style: .default) { _ in
@@ -173,7 +198,6 @@ extension GameViewController: UICollectionViewDelegate {
                 }
 
                 alertController.addAction(okAction)
-
                 present(alertController, animated: true, completion: nil)
             }
         }
