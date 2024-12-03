@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -44,6 +45,9 @@
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="New Game" image="button_newgame"/>
+                                <connections>
+                                    <segue destination="0Ad-Cr-Ffe" kind="show" identifier="showGameBoard" id="9A9-vy-RaN"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KL6-NV-1y7">
                                 <rect key="frame" x="24" y="560" width="345" height="70"/>
@@ -91,6 +95,105 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1057.2519083969464" y="-34.507042253521128"/>
+        </scene>
+        <!--Game View Controller-->
+        <scene sceneID="l1C-HH-Gd1">
+            <objects>
+                <viewController id="0Ad-Cr-Ffe" customClass="GameViewController" customModule="MemoryGame_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0P8-li-TXn">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_gameboard" translatesAutoresizingMaskIntoConstraints="NO" id="nUE-fD-76c">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aeO-nc-t3c">
+                                <rect key="frame" x="10" y="793" width="373" height="25"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time elapsed (s): 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ruj-jB-QW9">
+                                        <rect key="frame" x="0.0" y="0.0" width="181.66666666666666" height="25"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" systemColor="labelColor"/>
+                                        <size key="shadowOffset" width="2" height="-1"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moves: 0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SW3-gt-1Tu">
+                                        <rect key="frame" x="191.66666666666663" y="0.0" width="181.33333333333337" height="25"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" systemColor="labelColor"/>
+                                        <size key="shadowOffset" width="2" height="-1"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Hij-us-USw">
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20022365025111608" colorSpace="custom" customColorSpace="displayP3"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="zzF-9i-1Lr">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CardCell" id="zSL-in-J02" customClass="CardCollectionViewCell" customModule="MemoryGame_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="5" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="tdZ-4r-yZ5">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_card" translatesAutoresizingMaskIntoConstraints="NO" id="Atc-VR-c1q">
+                                                    <rect key="frame" x="8" y="8" width="112" height="112"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Atc-VR-c1q" firstAttribute="leading" secondItem="tdZ-4r-yZ5" secondAttribute="leadingMargin" id="7WZ-Te-sIw"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Atc-VR-c1q" secondAttribute="bottom" id="X7x-Op-nJo"/>
+                                                <constraint firstItem="Atc-VR-c1q" firstAttribute="top" secondItem="tdZ-4r-yZ5" secondAttribute="topMargin" id="Y8a-VT-9Z4"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Atc-VR-c1q" secondAttribute="trailing" id="eIy-Ym-NV3"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="CardArtImageView" destination="Atc-VR-c1q" id="nYA-Za-Acj"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="YVC-zw-y00"/>
+                        <constraints>
+                            <constraint firstItem="nUE-fD-76c" firstAttribute="trailing" secondItem="YVC-zw-y00" secondAttribute="trailing" id="07m-eE-6OD"/>
+                            <constraint firstItem="Hij-us-USw" firstAttribute="leading" secondItem="YVC-zw-y00" secondAttribute="leading" id="8wc-5j-bi2"/>
+                            <constraint firstItem="Hij-us-USw" firstAttribute="trailing" secondItem="YVC-zw-y00" secondAttribute="trailing" id="GVc-bX-trl"/>
+                            <constraint firstItem="YVC-zw-y00" firstAttribute="bottom" secondItem="aeO-nc-t3c" secondAttribute="bottom" id="Gac-6K-kSc"/>
+                            <constraint firstItem="nUE-fD-76c" firstAttribute="leading" secondItem="YVC-zw-y00" secondAttribute="leading" id="OWB-jP-WpC"/>
+                            <constraint firstItem="YVC-zw-y00" firstAttribute="bottom" secondItem="Hij-us-USw" secondAttribute="bottom" id="SF2-68-bIV"/>
+                            <constraint firstAttribute="bottom" secondItem="nUE-fD-76c" secondAttribute="bottom" id="UD1-pB-Qoi"/>
+                            <constraint firstItem="YVC-zw-y00" firstAttribute="trailing" secondItem="aeO-nc-t3c" secondAttribute="trailing" constant="10" id="Z9b-y4-m8L"/>
+                            <constraint firstItem="nUE-fD-76c" firstAttribute="top" secondItem="0P8-li-TXn" secondAttribute="top" id="fzN-Oq-3q0"/>
+                            <constraint firstItem="Hij-us-USw" firstAttribute="top" secondItem="YVC-zw-y00" secondAttribute="top" id="umZ-9L-pwc"/>
+                            <constraint firstItem="aeO-nc-t3c" firstAttribute="leading" secondItem="YVC-zw-y00" secondAttribute="leading" constant="10" id="xaa-BR-fEn"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="6zl-D1-ijf">
+                        <barButtonItem key="rightBarButtonItem" title="Restart" id="lhc-qK-0gG">
+                            <connections>
+                                <action selector="restartGame:" destination="0Ad-Cr-Ffe" id="gWw-0D-hxl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cardCollectionView" destination="Hij-us-USw" id="kI6-lz-Fd5"/>
+                        <outlet property="movesMadeLabel" destination="SW3-gt-1Tu" id="v7K-Nl-uP6"/>
+                        <outlet property="timeElapsedLabel" destination="Ruj-jB-QW9" id="REs-lx-QWq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ev5-QX-bju" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1052.6717557251909" y="703.52112676056345"/>
         </scene>
         <!--Game History Controller-->
         <scene sceneID="Ou5-BS-5fO">
@@ -228,7 +331,13 @@
                             <constraint firstItem="3fF-dA-f3K" firstAttribute="leading" secondItem="EMv-56-Sft" secondAttribute="leading" id="uvS-C0-SnC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="VSp-52-bDq"/>
+                    <navigationItem key="navigationItem" id="VSp-52-bDq">
+                        <barButtonItem key="rightBarButtonItem" title="Clear Game Data" id="dBl-cw-Abt">
+                            <connections>
+                                <action selector="clearGameDataMenuBtnClicked:" destination="6jc-XP-gBA" id="Obo-UT-BmL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="allBtn" destination="lZ0-rD-XYZ" id="M0G-5y-QqR"/>
                         <outlet property="completionTimeBtn" destination="61f-5B-UKh" id="rTU-1N-gK3"/>
@@ -263,6 +372,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="background_card" width="980" height="880"/>
+        <image name="background_gameboard" width="1620" height="2250"/>
         <image name="background_gamehistory" width="810" height="1125"/>
         <image name="background_mainmenu" width="810" height="1125"/>
         <image name="button_easy_selected" width="308" height="292"/>
@@ -276,6 +387,9 @@
         <image name="button_hard" width="350" height="292"/>
         <image name="button_medium" width="500" height="290"/>
         <image name="button_newgame" width="745" height="130"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
